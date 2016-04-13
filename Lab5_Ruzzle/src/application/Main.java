@@ -11,11 +11,15 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Ruzzle.fxml"));
+			FXMLLoader loader= new FXMLLoader(getClass().getResource("Ruzzle.fxml"));
+			BorderPane root=(BorderPane)loader.load();
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			ModelloRuzzle m= new ModelloRuzzle();
+			RuzzleController r= loader.getController();
+			r.setModel(m);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
