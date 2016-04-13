@@ -22,7 +22,6 @@ public class ModelloRuzzle {
 		for(int i=0;i<griglia.length;i++){
 			for(int j=0;j<griglia[i].length;j++){
 				double indice= Math.random()*26;
-				//System.out.println(indice);
 				griglia[i][j]= alfabeto.get((int)indice);
 			}
 		}
