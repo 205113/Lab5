@@ -33,14 +33,21 @@ public class ModelloRuzzle {
 		return m.risolvi();
 	}
 	
-	/*public static void main(String[] args){
+	public static void main(String[] args){
 		ModelloRuzzle m= new ModelloRuzzle();
 		char [][] matrice=m.genera(3);
 		for(int i=0;i<matrice.length;i++){
 			for(int j=0;j<matrice[i].length;j++){
-				System.out.println(matrice[i][j]);
+				System.out.print(matrice[i][j]+" ");
+			
 			}
-	
+			System.out.print("\n");
+		}List<String> soluzioni=m.risolvi();
+		System.out.println(soluzioni.size());
+		for(int i=0;i<soluzioni.size();i++){
+			System.out.println(soluzioni.get(i));
+			
 		}
-	}*/
+		
+	}
 }

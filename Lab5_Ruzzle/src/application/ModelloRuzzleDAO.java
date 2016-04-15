@@ -1,7 +1,12 @@
 package application;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ModelloRuzzleDAO {
 	private char[][] griglia;
@@ -19,14 +24,18 @@ public class ModelloRuzzleDAO {
 				possibili[i][j]=false;
 		}
 		for(int i=0;i<griglia.length;i++){
-			for(int j=0;j<griglia[i].length;j++)
+			for(int j=0;j<griglia[i].length;j++){
+				possibili[i][j]=true;
 				risolviRicorsivo(possibili,i,j,"");
+				possibili[i][j]=false;
+			}
+				
 		}
 		
 		return soluzioni;
 	}
 	public void risolviRicorsivo(boolean[][] possibili,int riga,int colonna,String parola){
-	if(esiste(parola)){
+	if(esiste(parola)&&parola.length()>1&&!soluzioni.contains(parola)){
 		soluzioni.add(parola);
 	}
 		else{
@@ -75,6 +84,26 @@ public class ModelloRuzzleDAO {
 	}
 	public boolean esiste(String parola){
 		// si connette a Db e verifica se parola esista gia o meno
+		Connessione c= new Connessione("jdbc:mysql://localhost/dizionario?user=root");
+		Connection conn= c.connetti();
+		String sql="";
+		boolean esiste;
+		try {
+				sql="SELECT nome FROM parola WHERE nome = ?";
+				PreparedStatement s= conn.prepareStatement(sql);
+				s.setString(1, parola);
+				ResultSet rs= s.executeQuery();
+				if(rs.next())
+					esiste=true;
+				else
+					esiste=false;
+			conn.close();
+			rs.close();
+			return esiste;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 }
